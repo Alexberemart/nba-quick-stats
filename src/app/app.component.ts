@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Player} from "./player";
 import {PlayerEntry} from "./player-entry";
+import {Http} from "@angular/http";
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +11,20 @@ import {PlayerEntry} from "./player-entry";
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private http: Http) {
     this.selectedPlayer = {
       code: "",
       name: ""
     };
-    this.states = [
-      {code: 'AL', name: 'Andre Iguodala'},
-      {code: 'kdurant', name: 'Kevin Durant'},
-      {code: 'kdurant', name: 'Stephen Curry'}
-    ];
     this.entry = [
-      {player: this.states[1], action: "action"}
+      {player: new Player, action: "action"}
     ];
+
+    http.get('assets/players.json')
+      .map(res => res.json())
+      .subscribe(data => this.states = data,
+        err => console.log(err),
+        () => console.log('Completed'));
   }
 
   title = 'app';

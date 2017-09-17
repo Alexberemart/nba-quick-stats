@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {MdButtonModule, MdCheckboxModule, MdCardModule, MdSelectModule, MdGridListModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MdButtonModule,
     MdCardModule,
-    MdGridListModule
+    MdGridListModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
