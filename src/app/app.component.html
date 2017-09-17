@@ -1,0 +1,28 @@
+<div>
+  <md-grid-list cols="3" rowHeight="2:1">
+    <md-grid-tile *ngFor="let state of states">
+      <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.name}}</button>
+    </md-grid-tile>
+  </md-grid-list>
+
+  <md-grid-list cols="3" rowHeight="2:1">
+    <md-grid-tile>
+      <button md-raised-button color="primary" (click)="success($event, 3)" [disabled]="selectedPlayer.code==''">3 PTS
+      </button>
+    </md-grid-tile>
+    <md-grid-tile>
+      <button md-raised-button color="accent" (click)="success($event, 2)" [disabled]="selectedPlayer.code==''">2 PTS
+      </button>
+    </md-grid-tile>
+    <md-grid-tile>
+      <button md-raised-button color="warn" (click)="success($event, 1)" [disabled]="selectedPlayer.code==''">1 PTS
+      </button>
+    </md-grid-tile>
+  </md-grid-list>
+
+  <md-card>
+    <li *ngFor="let user of entry">
+      {{user.player.name}} {{user.action}}
+    </li>
+  </md-card>
+</div>
