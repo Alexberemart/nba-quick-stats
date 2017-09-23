@@ -1,5 +1,15 @@
 [
-  {"code": "AL", "name": "Andre Iguodala"},
-  {"code": "kdurant", "name": "Kevin Durant"},
-  {"code": "kdurant", "name": "Stephen Curry"}
+  {"code": "AL", "name": "Andre Iguodala", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Kevin Durant", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Stephen Curry", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "GSW"},
+  {"code": "kdurant", "name": "Klay Thompson", "teamId": "LAL"}
 ]
