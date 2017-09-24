@@ -22,13 +22,13 @@ export class AppComponent {
       {player: new Player, action: "action"}
     ];
 
-    http.get('assets/players.json')
+    http.get('http://localhost:8080/playerByTeam')
       .map(res => res.json())
       .subscribe(data => this.states = data,
         err => console.log(err),
         () => console.log('Completed'));
 
-    http.get('assets/teams.json')
+    http.get('http://localhost:8080/team')
       .map(res => res.json())
       .subscribe(data => this.foods = data,
         err => console.log(err),
@@ -57,5 +57,19 @@ export class AppComponent {
 
   public setPlayer(event, player) {
     this.selectedPlayer = player;
+  }
+
+  public myFunction(event) {
+    debugger;
+    alert("alex");
+  }
+
+  public loadPlayers(event) {
+    debugger;
+    this.http.get('http://localhost:8080/playerByTeamByTeam' + '?teamID=' + event.value)
+      .map(res => res.json())
+      .subscribe(data => this.states = data,
+        err => console.log(err),
+        () => console.log('Completed'));
   }
 }
