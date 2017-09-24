@@ -22,13 +22,13 @@ export class AppComponent {
       {player: new Player, action: "action"}
     ];
 
-    http.get('http://localhost:8080/playerByTeam')
+    http.get('http://nba-quick-stats-api.herokuapp.com/playerByTeam')
       .map(res => res.json())
       .subscribe(data => this.states = data,
         err => console.log(err),
         () => console.log('Completed'));
 
-    http.get('http://localhost:8080/team')
+    http.get('http://nba-quick-stats-api.herokuapp.com/team')
       .map(res => res.json())
       .subscribe(data => this.foods = data,
         err => console.log(err),
@@ -66,7 +66,7 @@ export class AppComponent {
 
   public loadPlayers(event) {
     debugger;
-    this.http.get('http://localhost:8080/playerByTeamByTeam' + '?teamID=' + event.value)
+    this.http.get('http://nba-quick-stats-api.herokuapp.com/playerByTeamByTeam' + '?teamID=' + event.value)
       .map(res => res.json())
       .subscribe(data => this.states = data,
         err => console.log(err),
