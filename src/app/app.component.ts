@@ -18,7 +18,6 @@ export class AppComponent {
 
     this.apiURL = environment.apiURL;
     this.selectedPlayer = new PlayerByTeam;
-    debugger;
     this.entry = [
       {player: new Player, action: "action"}
     ];
