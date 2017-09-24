@@ -1,25 +1,25 @@
 <div>
 
-  <md-select placeholder="Favorite food" (change)="loadPlayers($event)">
+  <md-select placeholder="Favorite food" (change)="loadPlayers($event, 1)">
     <md-option *ngFor="let food of foods" [value]="food.code">
       {{ food.name }}
     </md-option>
   </md-select>
 
   <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile *ngFor="let state of states">
+    <md-grid-tile *ngFor="let state of localPlayers">
       <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
     </md-grid-tile>
   </md-grid-list>
 
-  <md-select placeholder="Favorite food" (change)="loadPlayers($event)">
+  <md-select placeholder="Favorite food" (change)="loadPlayers($event, 2)">
     <md-option *ngFor="let food of foods" [value]="food.code" >
       {{ food.name }}
     </md-option>
   </md-select>
 
   <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile *ngFor="let state of states">
+    <md-grid-tile *ngFor="let state of awayPlayers">
       <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
     </md-grid-tile>
   </md-grid-list>

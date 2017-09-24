@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
 import {Player} from "./player";
 import {PlayerEntry} from "./player-entry";
 import {Http} from "@angular/http";
-import 'rxjs/Rx';
+import "rxjs/Rx";
 import {Team} from "./team";
 import {environment} from "../environments/environment";
 
@@ -41,11 +41,13 @@ export class AppComponent {
   }
 
   title = 'app';
-  states : Player[];
-  foods : Team[];
-  selectedPlayer : Player;
-  entry : PlayerEntry[];
-  apiURL : string;
+  states: Player[];
+  localPlayers: Player[];
+  awayPlayers: Player[];
+  foods: Team[];
+  selectedPlayer: Player;
+  entry: PlayerEntry[];
+  apiURL: string;
 
   public success(event, action) {
     this.entry.push(
@@ -70,12 +72,19 @@ export class AppComponent {
     alert("alex");
   }
 
-  public loadPlayers(event) {
-    debugger;
-    this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value)
-      .map(res => res.json())
-      .subscribe(data => this.states = data,
-        err => console.log(err),
-        () => console.log('Completed'));
+  public loadPlayers(event, option) {
+    if (option == 1) {
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value)
+        .map(res => res.json())
+        .subscribe(data => this.localPlayers = data,
+          err => console.log(err),
+          () => console.log('Completed'));
+    }else{
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value)
+        .map(res => res.json())
+        .subscribe(data => this.awayPlayers = data,
+          err => console.log(err),
+          () => console.log('Completed'));
+    }
   }
 }
