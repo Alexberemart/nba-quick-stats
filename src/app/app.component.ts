@@ -64,13 +64,13 @@ export class AppComponent {
 
   public loadPlayers(event, option) {
     if (option == 1) {
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value)
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value + '&seasonCode=2018')
         .map(res => res.json())
         .subscribe(data => this.localPlayers = data,
           err => console.log(err),
           () => console.log('Completed'));
     }else{
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value)
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value + '&seasonCode=2018')
         .map(res => res.json())
         .subscribe(data => this.awayPlayers = data,
           err => console.log(err),
