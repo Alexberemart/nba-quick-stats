@@ -5,6 +5,7 @@ import {Http} from "@angular/http";
 import "rxjs/Rx";
 import {Team} from "./team";
 import {environment} from "../environments/environment";
+import {PlayerByTeam} from "./playerByTeam";
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,8 @@ export class AppComponent {
   constructor(private http: Http) {
 
     this.apiURL = environment.apiURL;
-
-    this.selectedPlayer = {
-      code: "",
-      name: "",
-      teamId: ""
-    };
+    this.selectedPlayer = new PlayerByTeam;
+    debugger;
     this.entry = [
       {player: new Player, action: "action"}
     ];
@@ -32,7 +29,6 @@ export class AppComponent {
         err => console.log(err),
         () => console.log('Completed'));
 
-    debugger;
     http.get(this.apiURL + '/team')
       .map(res => res.json())
       .subscribe(data => this.foods = data,
@@ -42,25 +38,21 @@ export class AppComponent {
 
   title = 'app';
   states: Player[];
-  localPlayers: Player[];
-  awayPlayers: Player[];
+  localPlayers: PlayerByTeam[];
+  awayPlayers: PlayerByTeam[];
   foods: Team[];
-  selectedPlayer: Player;
+  selectedPlayer: PlayerByTeam;
   entry: PlayerEntry[];
   apiURL: string;
 
   public success(event, action) {
     this.entry.push(
       {
-        player: this.selectedPlayer,
+        player: this.selectedPlayer.player,
         action: action
       }
     );
-    this.selectedPlayer = {
-      code: "",
-      name: "",
-      teamId: ""
-    };
+    this.selectedPlayer = new PlayerByTeam;
   }
 
   public setPlayer(event, player) {
@@ -68,7 +60,6 @@ export class AppComponent {
   }
 
   public myFunction(event) {
-    debugger;
     alert("alex");
   }
 

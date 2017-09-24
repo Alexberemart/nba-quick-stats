@@ -1,6 +1,6 @@
 <div>
 
-  <md-select placeholder="Favorite food" (change)="loadPlayers($event, 1)">
+  <md-select placeholder="Local Team" (change)="loadPlayers($event, 1)">
     <md-option *ngFor="let food of foods" [value]="food.code">
       {{ food.name }}
     </md-option>
@@ -12,7 +12,7 @@
     </md-grid-tile>
   </md-grid-list>
 
-  <md-select placeholder="Favorite food" (change)="loadPlayers($event, 2)">
+  <md-select placeholder="Away Team" (change)="loadPlayers($event, 2)">
     <md-option *ngFor="let food of foods" [value]="food.code" >
       {{ food.name }}
     </md-option>
