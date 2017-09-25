@@ -1,25 +1,34 @@
 <div>
 
-  <md-select placeholder="Local Team" (change)="loadPlayers($event, 1)">
-    <md-option *ngFor="let food of foods" [value]="food.code">
-      {{ food.name }}
-    </md-option>
-  </md-select>
+  <md-grid-list cols="2" rowHeight="2:1">
+    <md-grid-tile>
+      <md-select placeholder="Local Team" (change)="loadPlayers($event, 1)">
+        <md-option *ngFor="let food of foods" [value]="food.code">
+          {{ food.name }}
+        </md-option>
+      </md-select>
+    </md-grid-tile>
 
-  <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile *ngFor="let state of localPlayers">
-      <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
+    <md-grid-tile>
+      <md-select placeholder="Away Team" (change)="loadPlayers($event, 2)">
+        <md-option *ngFor="let food of foods" [value]="food.code">
+          {{ food.name }}
+        </md-option>
+      </md-select>
     </md-grid-tile>
   </md-grid-list>
 
-  <md-select placeholder="Away Team" (change)="loadPlayers($event, 2)">
-    <md-option *ngFor="let food of foods" [value]="food.code" >
-      {{ food.name }}
-    </md-option>
-  </md-select>
+  <md-grid-list cols="1" rowHeight="10:1">
+    <md-grid-tile>
+      <md-radio-group (change)="changePlayers($event)">
+        <md-radio-button value="1">Local</md-radio-button>
+        <md-radio-button value="2">Away</md-radio-button>
+      </md-radio-group>
+    </md-grid-tile>
+  </md-grid-list>
 
   <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile *ngFor="let state of awayPlayers">
+    <md-grid-tile *ngFor="let state of players">
       <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
     </md-grid-tile>
   </md-grid-list>

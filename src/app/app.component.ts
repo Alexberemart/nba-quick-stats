@@ -39,6 +39,7 @@ export class AppComponent {
   states: Player[];
   localPlayers: PlayerByTeam[];
   awayPlayers: PlayerByTeam[];
+  players: PlayerByTeam[];
   foods: Team[];
   selectedPlayer: PlayerByTeam;
   entry: PlayerEntry[];
@@ -75,6 +76,14 @@ export class AppComponent {
         .subscribe(data => this.awayPlayers = data,
           err => console.log(err),
           () => console.log('Completed'));
+    }
+  }
+
+  public changePlayers(event) {
+    if (event.value == 1) {
+      this.players = this.localPlayers;
+    }else{
+      this.players = this.awayPlayers;
     }
   }
 }
