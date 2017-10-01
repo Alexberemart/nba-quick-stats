@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   selectedPlayer: PlayerByTeam;
   entry: PlayerEntry[];
   points: any[] = [];
+  localSelected: boolean;
   apiURL: string;
   options;
   data;
@@ -45,17 +46,17 @@ export class AppComponent implements OnInit {
     );
 
     let result = this.points.filter(point => point.player == this.selectedPlayer.player);
-    if (result.length == 0){
+    if (result.length == 0) {
       this.points.push(
         {
           player: this.selectedPlayer.player,
           label: this.selectedPlayer.player.name,
-          value: 1
+          value: action
         }
       )
     }
-    else{
-      result[0].value += 1;
+    else {
+      result[0].value += action;
     }
 
     this.nvd3.chart.update();
@@ -89,8 +90,10 @@ export class AppComponent implements OnInit {
 
   public changePlayers(event) {
     if (event.value == 1) {
+      this.localSelected = true;
       this.players = this.localPlayers;
     } else {
+      this.localSelected = false;
       this.players = this.awayPlayers;
     }
   }
@@ -143,45 +146,11 @@ export class AppComponent implements OnInit {
           axisLabelDistance: -10
         }
       }
-    }
+    };
     this.data = [
       {
         key: "Cumulative Return",
         values: this.points
-        // values: [
-        //   {
-        //     "label": "Michael Jordan",
-        //     "value": 29.765957771107
-        //   },
-        //   {
-        //     "label": "B",
-        //     "value": 0
-        //   },
-        //   {
-        //     "label": "C",
-        //     "value": 32.807804682612
-        //   },
-        //   {
-        //     "label": "D",
-        //     "value": 196.45946739256
-        //   },
-        //   {
-        //     "label": "E",
-        //     "value": 0.19434030906893
-        //   },
-        //   {
-        //     "label": "F",
-        //     "value": 98.079782601442
-        //   },
-        //   {
-        //     "label": "G",
-        //     "value": 13.925743130903
-        //   },
-        //   {
-        //     "label": "H",
-        //     "value": 5.1387322875705
-        //   }
-        // ]
       }
     ];
   }
