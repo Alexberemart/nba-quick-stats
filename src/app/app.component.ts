@@ -22,13 +22,12 @@ export class AppComponent implements OnInit {
   }
 
   title = 'app';
-  states: Player[];
   localPlayers: PlayerByTeam[];
   awayPlayers: PlayerByTeam[];
   players: PlayerByTeam[];
-  foods: Team[];
+  teams: Team[];
   selectedPlayer: PlayerByTeam;
-  entry: PlayerEntry[];
+  playerEntry: PlayerEntry[];
   points: any[] = [];
   localSelected: boolean;
   apiURL: string;
@@ -38,7 +37,7 @@ export class AppComponent implements OnInit {
   @ViewChild('nvd3') nvd3;
 
   public success(event, action) {
-    this.entry.push(
+    this.playerEntry.push(
       {
         player: this.selectedPlayer.player,
         action: action
@@ -66,10 +65,6 @@ export class AppComponent implements OnInit {
 
   public setPlayer(event, player) {
     this.selectedPlayer = player;
-  }
-
-  public myFunction(event) {
-    alert("alex");
   }
 
   public loadPlayers(event, option) {
@@ -101,19 +96,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.apiURL = environment.apiURL;
     this.selectedPlayer = new PlayerByTeam;
-    this.entry = [
+    this.playerEntry = [
       {player: new Player, action: "action"}
     ];
 
-    this.http.get(this.apiURL + '/playerByTeam')
-      .map(res => res.json())
-      .subscribe(data => this.states = data,
-        err => console.log(err),
-        () => console.log('Completed'));
-
     this.http.get(this.apiURL + '/team')
       .map(res => res.json())
-      .subscribe(data => this.foods = data,
+      .subscribe(data => this.teams = data,
         err => console.log(err),
         () => console.log('Completed'));
     this.options = {
@@ -132,17 +121,13 @@ export class AppComponent implements OnInit {
         y: function (d) {
           return d.value;
         },
-        showValues: true,
-        valueFormat: function (d) {
-          return d3.format(',.4f')(d);
-        },
         duration: 500,
         xAxis: {
-          axisLabel: 'X Axis',
+          axisLabel: 'Players',
           rotateLabels: -90
         },
         yAxis: {
-          axisLabel: 'Y Axis',
+          axisLabel: 'Points',
           axisLabelDistance: -10
         }
       }

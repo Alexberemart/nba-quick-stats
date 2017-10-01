@@ -3,7 +3,7 @@
   <md-grid-list cols="2" rowHeight="2:1">
     <md-grid-tile>
       <md-select placeholder="Local Team" (change)="loadPlayers($event, 1)">
-        <md-option *ngFor="let food of foods" [value]="food.code">
+        <md-option *ngFor="let food of teams" [value]="food.code">
           {{ food.name }}
         </md-option>
       </md-select>
@@ -11,7 +11,7 @@
 
     <md-grid-tile>
       <md-select placeholder="Away Team" (change)="loadPlayers($event, 2)">
-        <md-option *ngFor="let food of foods" [value]="food.code">
+        <md-option *ngFor="let food of teams" [value]="food.code">
           {{ food.name }}
         </md-option>
       </md-select>
@@ -49,7 +49,7 @@
   </md-grid-list>
 
   <md-card>
-    <li *ngFor="let user of entry">
+    <li *ngFor="let user of playerEntry">
       {{user.player.name}} {{user.action}}
     </li>
   </md-card>
