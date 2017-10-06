@@ -1,52 +1,9 @@
 <div>
 
-  <md-grid-list cols="2" rowHeight="2:1">
-    <md-grid-tile>
-      <md-select placeholder="Local Team" (change)="loadPlayers($event, 1)">
-        <md-option *ngFor="let food of teams" [value]="food.code">
-          {{ food.name }}
-        </md-option>
-      </md-select>
-    </md-grid-tile>
-
-    <md-grid-tile>
-      <md-select placeholder="Away Team" (change)="loadPlayers($event, 2)">
-        <md-option *ngFor="let food of teams" [value]="food.code">
-          {{ food.name }}
-        </md-option>
-      </md-select>
-    </md-grid-tile>
-  </md-grid-list>
-
-  <md-grid-list cols="1" rowHeight="10:1">
-    <md-grid-tile>
-      <md-radio-group (change)="changePlayers($event)">
-        <md-radio-button value="1">Local</md-radio-button>
-        <md-radio-button value="2">Away</md-radio-button>
-      </md-radio-group>
-    </md-grid-tile>
-  </md-grid-list>
-
-  <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile *ngFor="let state of players">
-      <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
-    </md-grid-tile>
-  </md-grid-list>
-
-  <md-grid-list cols="3" rowHeight="2:1">
-    <md-grid-tile>
-      <button md-raised-button color="primary" (click)="success($event, 3)" [disabled]="!selectedPlayer.player">3 PTS
-      </button>
-    </md-grid-tile>
-    <md-grid-tile>
-      <button md-raised-button color="accent" (click)="success($event, 2)" [disabled]="!selectedPlayer.player">2 PTS
-      </button>
-    </md-grid-tile>
-    <md-grid-tile>
-      <button md-raised-button color="warn" (click)="success($event, 1)" [disabled]="!selectedPlayer.player">1 PTS
-      </button>
-    </md-grid-tile>
-  </md-grid-list>
+  <app-team-selector [teams]="teams" (onLoadPlayers)="onLoadPlayers($event)"></app-team-selector>
+  <app-team-slider (onChangeTeam)="onChangeTeam($event)"></app-team-slider>
+  <app-players [players]="players" (onSetPlayer)="onSetPlayer($event)"></app-players>
+  <app-actions (onSetAction)="onSetAction($event)" [player]="selectedPlayer.player"></app-actions>
 
   <md-card>
     <li *ngFor="let user of playerEntry">

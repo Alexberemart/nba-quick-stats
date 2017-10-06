@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://localhost:8080'
+  apiURL: 'https://nba-quick-stats-api.herokuapp.com'
 };

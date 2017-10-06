@@ -1,0 +1,7 @@
+<md-grid-list cols="3" rowHeight="2:1">
+  <md-grid-tile *ngFor="let action of actions">
+    <button md-raised-button color="{{action.style}}" (click)="setAction($event, action.value)" [disabled]="!player">
+      {{action.description}}
+    </button>
+  </md-grid-tile>
+</md-grid-list>

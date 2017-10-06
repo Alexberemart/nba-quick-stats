@@ -1,0 +1,5 @@
+<md-grid-list cols="3" rowHeight="2:1">
+  <md-grid-tile *ngFor="let state of players">
+    <button md-raised-button color="primary" (click)="setPlayer($event, state)">{{state.player.name}}</button>
+  </md-grid-tile>
+</md-grid-list>

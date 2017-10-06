@@ -10,10 +10,18 @@ import { NvD3Module } from 'ng2-nvd3';
 // d3 and nvd3 should be included somewhere
 import 'd3';
 import 'nvd3';
+import { PlayersComponent } from './players/players.component';
+import { ActionsComponent } from './actions/actions.component';
+import { TeamSliderComponent } from './team-slider/team-slider.component';
+import { TeamSelectorComponent } from './team-selector/team-selector.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayersComponent,
+    ActionsComponent,
+    TeamSliderComponent,
+    TeamSelectorComponent
   ],
   imports: [
     BrowserModule,

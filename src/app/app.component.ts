@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit, ViewChild} from "@angular/core";
+import {Component, ViewEncapsulation, OnInit, ViewChild, Output, EventEmitter} from "@angular/core";
 import {Player} from "./player";
 import {PlayerEntry} from "./player-entry";
 import {Http} from "@angular/http";
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('nvd3') nvd3;
 
-  public success(event, action) {
+  public onSetAction(action) {
     this.playerEntry.push(
       {
         player: this.selectedPlayer.player,
@@ -63,19 +63,20 @@ export class AppComponent implements OnInit {
     this.selectedPlayer = new PlayerByTeam;
   }
 
-  public setPlayer(event, player) {
+  public onSetPlayer(player) {
+    console.log("pasooo");
     this.selectedPlayer = player;
   }
 
-  public loadPlayers(event, option) {
-    if (option == 1) {
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value + '&seasonCode=2018')
+  public onLoadPlayers(data) {
+    if (data.option == 1) {
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + data.value + '&seasonCode=2018')
         .map(res => res.json())
         .subscribe(data => this.localPlayers = data,
           err => console.log(err),
           () => console.log('Completed'));
     } else {
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + event.value + '&seasonCode=2018')
+      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + data.value + '&seasonCode=2018')
         .map(res => res.json())
         .subscribe(data => this.awayPlayers = data,
           err => console.log(err),
@@ -83,8 +84,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public changePlayers(event) {
-    if (event.value == 1) {
+  public onChangeTeam(value:number) {
+    if (value == 1) {
       this.localSelected = true;
       this.players = this.localPlayers;
     } else {
@@ -138,5 +139,6 @@ export class AppComponent implements OnInit {
         values: this.points
       }
     ];
+
   }
 }
