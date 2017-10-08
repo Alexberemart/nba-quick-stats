@@ -1,13 +1,12 @@
-import {Component, ViewEncapsulation, OnInit, ViewChild, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {Player} from "./player";
 import {PlayerEntry} from "./player-entry";
-import {Http} from "@angular/http";
 import "rxjs/Rx";
 import {Team} from "./team";
 import {environment} from "../environments/environment";
 import {PlayerByTeam} from "./playerByTeam";
-
-declare let d3: any;
+import {PlayerByTeamService} from "./player-by-team.service";
+import {TeamService} from "./team.service";
 
 @Component({
   selector: 'app-root',
@@ -18,8 +17,33 @@ declare let d3: any;
 })
 export class AppComponent implements OnInit {
 
-  constructor(private http: Http) {
-  }
+  chartOptions = {
+    chart: {
+      type: 'discreteBarChart',
+      height: 450,
+      margin: {
+        top: 20,
+        right: 20,
+        bottom: 150,
+        left: 55
+      },
+      x: function (d) {
+        return d.label;
+      },
+      y: function (d) {
+        return d.value;
+      },
+      duration: 500,
+      xAxis: {
+        axisLabel: 'Players',
+        rotateLabels: -90
+      },
+      yAxis: {
+        axisLabel: 'Points',
+        axisLabelDistance: -10
+      }
+    }
+  };
 
   title = 'app';
   localPlayers: PlayerByTeam[];
@@ -33,6 +57,32 @@ export class AppComponent implements OnInit {
   apiURL: string;
   options;
   data;
+
+  constructor(private playerByTeamService: PlayerByTeamService,
+              private teamService: TeamService) {
+  }
+
+  ngOnInit() {
+    this.apiURL = environment.apiURL;
+    this.selectedPlayer = new PlayerByTeam;
+    this.playerEntry = [
+      {player: new Player, action: "action"}
+    ];
+
+    this.teamService.getTeams()
+      .map(res => res.json())
+      .subscribe(data => this.teams = data,
+        err => console.log(err),
+        () => console.log('Completed'));
+    this.options = this.chartOptions;
+    this.data = [
+      {
+        key: "Cumulative Return",
+        values: this.points
+      }
+    ];
+
+  }
 
   @ViewChild('nvd3') nvd3;
 
@@ -64,81 +114,27 @@ export class AppComponent implements OnInit {
   }
 
   public onSetPlayer(player) {
-    console.log("pasooo");
     this.selectedPlayer = player;
   }
 
   public onLoadPlayers(data) {
     if (data.option == 1) {
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + data.value + '&seasonCode=2018')
+      this.playerByTeamService.getPlayerByTeam(data.value)
         .map(res => res.json())
-        .subscribe(data => this.localPlayers = data,
-          err => console.log(err),
-          () => console.log('Completed'));
+        .subscribe(data => this.localPlayers = data);
     } else {
-      this.http.get(this.apiURL + '/playerByTeamByTeam' + '?teamID=' + data.value + '&seasonCode=2018')
+      this.playerByTeamService.getPlayerByTeam(data.value)
         .map(res => res.json())
-        .subscribe(data => this.awayPlayers = data,
-          err => console.log(err),
-          () => console.log('Completed'));
+        .subscribe(data => this.awayPlayers = data);
     }
   }
 
-  public onChangeTeam(value:number) {
+  public onChangeTeam(value: number) {
+    this.localSelected = value == 1;
     if (value == 1) {
-      this.localSelected = true;
       this.players = this.localPlayers;
     } else {
-      this.localSelected = false;
       this.players = this.awayPlayers;
     }
-  }
-
-  ngOnInit() {
-    this.apiURL = environment.apiURL;
-    this.selectedPlayer = new PlayerByTeam;
-    this.playerEntry = [
-      {player: new Player, action: "action"}
-    ];
-
-    this.http.get(this.apiURL + '/team')
-      .map(res => res.json())
-      .subscribe(data => this.teams = data,
-        err => console.log(err),
-        () => console.log('Completed'));
-    this.options = {
-      chart: {
-        type: 'discreteBarChart',
-        height: 450,
-        margin: {
-          top: 20,
-          right: 20,
-          bottom: 150,
-          left: 55
-        },
-        x: function (d) {
-          return d.label;
-        },
-        y: function (d) {
-          return d.value;
-        },
-        duration: 500,
-        xAxis: {
-          axisLabel: 'Players',
-          rotateLabels: -90
-        },
-        yAxis: {
-          axisLabel: 'Points',
-          axisLabelDistance: -10
-        }
-      }
-    };
-    this.data = [
-      {
-        key: "Cumulative Return",
-        values: this.points
-      }
-    ];
-
   }
 }
